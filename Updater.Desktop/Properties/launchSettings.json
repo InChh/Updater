@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Updater.Desktop": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\测试"
+    }
+  }
+}
