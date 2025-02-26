@@ -161,21 +161,21 @@ public class UpdaterService(IApplicationVersionApi applicationVersionApi, Config
             ReportProgress(progress, progressData);
         }
 
-        // 阶段2：处理删除
-        progressData.Phase = "清理旧文件";
-        foreach (var path in diff.FilesToDelete)
-        {
-            progressData.CurrentFile = path;
-            progressData.CurrentStep = ++completedSteps;
-
-            var fullPath = Path.Combine(appRoot, path);
-            if (File.Exists(fullPath))
-            {
-                // 安全考虑，不直接删除文件
-            }
-
-            ReportProgress(progress, progressData);
-        }
+        // // 阶段2：处理删除
+        // progressData.Phase = "清理旧文件";
+        // foreach (var path in diff.FilesToDelete)
+        // {
+        //     progressData.CurrentFile = path;
+        //     progressData.CurrentStep = ++completedSteps;
+        //
+        //     var fullPath = Path.Combine(appRoot, path);
+        //     if (File.Exists(fullPath))
+        //     {
+        //         // 安全考虑，不直接删除文件
+        //     }
+        //
+        //     ReportProgress(progress, progressData);
+        // }
 
         // 阶段3：处理下载
         progressData.Phase = "下载更新文件";
@@ -191,7 +191,7 @@ public class UpdaterService(IApplicationVersionApi applicationVersionApi, Config
             };
 
             var fileName = file.Path.Split('/').Last();
-            var isSelfUpdate = fileName == FileNameConsts.UpdaterFileName;
+            var isSelfUpdate = fileName is FileNameConsts.UpdaterFileName or FileNameConsts.MainExeFileName;
 
             try
             {
