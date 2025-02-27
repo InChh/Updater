@@ -67,19 +67,43 @@ public partial class App : Application
             var args = desktop.Args;
             if (args is { Length: > 0 })
             {
-                // 若第一个参数是 "--check-update" 或"-c"，则不打开GUI检查更新，通过返回值来判断是否有新版本
-                if (args[0] == "--check-update" || args[0] == "-c")
+                switch (args[0])
                 {
-                    if (result.HasNewVersion)
+                    // 若第一个参数是 "--check-update" 或"-c"，则不打开GUI检查更新，通过返回值来判断是否有新版本
+                    case "--check-update":
+                    case "-c":
                     {
-                        // 若有新版本，则返回1
-                        desktop.Shutdown(1);
+                        if (result.HasNewVersion)
+                        {
+                            // 若有新版本，则返回1
+                            desktop.Shutdown(1);
+                            return;
+                        }
+
+                        // 若没有新版本，则返回-1
+                        desktop.Shutdown(-1);
                         return;
                     }
+                    case "--update":
+                    case "-u":
+                    {
+                        // 若第一个参数是 "--update" 或"-u"，则不打开GUI检查更新，直接更新
+                        if (result.HasNewVersion)
+                        {
+                            // 若有新版本，则直接更新
+                            Log.Information("发现新版本:{versionNumber}，进行更新...", result.LatestVersion?.VersionNumber);
+                            new MainWindow().Show();
+                        }
+                        else
+                        {
+                            // 若没有新版本，则直接退出程序
+                            await MessageBoxHelper.ShowInfo("当前已是最新版本");
+                            Log.Information("当前已是最新版本，程序退出...");
+                            desktop.Shutdown();
+                        }
 
-                    // 若没有新版本，则返回-1
-                    desktop.Shutdown(-1);
-                    return;
+                        return;
+                    }
                 }
             }
 
@@ -108,7 +132,6 @@ public partial class App : Application
                 Log.Information("当前已是最新版本，程序退出...");
                 desktop.Shutdown();
             }
-
         }
         catch (TaskCanceledException e)
         {
@@ -140,7 +163,6 @@ public partial class App : Application
             await MessageBoxHelper.ShowError("程序运行过程中发生未知错误，请重新安装程序或联系开发者。");
             desktop.Shutdown(-999);
         }
-
     }
 
     private static async Task<ServiceProvider> ConfigureServices()

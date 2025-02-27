@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MsBox.Avalonia;
 using Serilog;
+using Updater.Consts;
 using Updater.Exceptions;
 using Updater.Extensions;
 using Updater.Helpers;
@@ -28,9 +30,16 @@ public partial class MainViewModel(IUpdaterService updaterService, Config config
 
     [ObservableProperty] private string _versionDescription = string.Empty;
 
+ 
     [RelayCommand]
     private async Task UpdateAsync()
     {
+        if (ProcessHelper.IsWindowRunning(UpdaterConsts.MainExeWindowName))
+        {
+            await MessageBoxHelper.ShowInfo("程序正在运行中，请先关闭程序。");
+            Environment.Exit(0);
+        }
+
         try
         {
             var progress =
