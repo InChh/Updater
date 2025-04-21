@@ -40,8 +40,8 @@ public partial class MainViewModel(IUpdaterService updaterService, Config config
             Environment.Exit(0);
         }
 
-        try
-        {
+        // try
+        // {
             var progress =
                 new Progress<ProgressReport>(report =>
                 {
@@ -106,42 +106,42 @@ public partial class MainViewModel(IUpdaterService updaterService, Config config
 
             await MessageBoxHelper.ShowInfo("更新完成");
             Environment.Exit(0);
-        }
-        catch (ConfigNotFoundException e)
-        {
-            Log.Error(e, "Config file not found.");
-            await MessageBoxHelper.ShowError("未找到配置文件，请检查配置文件是否存在。");
-            Environment.Exit(-999);
-        }
-        catch (OperationCanceledException e)
-        {
-            Log.Error(e, "");
-            await MessageBoxHelper.ShowError(e.Message);
-            Environment.Exit(-999);
-        }
-        catch (NotInstallCurrectlyException e)
-        {
-            Log.Error(e, "Not installed correctly.");
-            await MessageBoxHelper.ShowError("程序未正确安装，请重新安装本程序。");
-            Environment.Exit(-999);
-        }
-        catch (HttpRequestException e)
-        {
-            Log.Warning(e, "Error occurred while sending request to server.");
-            await MessageBoxHelper.ShowError("向服务器发送请求时发生错误，请检查网络连接。");
-            Environment.Exit(-999);
-        }
-        catch (UpdateException e)
-        {
-            Log.Error(e, e.Message);
-            await MessageBoxHelper.ShowError(e.Message);
-            Environment.Exit(-999);
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "An error occurred while executing the application.");
-            await MessageBoxHelper.ShowError("程序运行过程中发生未知错误，请重新安装程序或联系开发者。");
-            Environment.Exit(-999);
-        }
+        // }
+        // catch (ConfigNotFoundException e)
+        // {
+        //     Log.Error(e, "Config file not found.");
+        //     await MessageBoxHelper.ShowError("未找到配置文件，请检查配置文件是否存在。");
+        //     Environment.Exit(-999);
+        // }
+        // catch (OperationCanceledException e)
+        // {
+        //     Log.Error(e, "");
+        //     await MessageBoxHelper.ShowError(e.Message);
+        //     Environment.Exit(-999);
+        // }
+        // catch (NotInstallCurrectlyException e)
+        // {
+        //     Log.Error(e, "Not installed correctly.");
+        //     await MessageBoxHelper.ShowError("程序未正确安装，请重新安装本程序。");
+        //     Environment.Exit(-999);
+        // }
+        // catch (HttpRequestException e)
+        // {
+        //     Log.Warning(e, "Error occurred while sending request to server.");
+        //     await MessageBoxHelper.ShowError("向服务器发送请求时发生错误，请检查网络连接。");
+        //     Environment.Exit(-999);
+        // }
+        // catch (UpdateException e)
+        // {
+        //     Log.Error(e, e.Message);
+        //     await MessageBoxHelper.ShowError(e.Message);
+        //     Environment.Exit(-999);
+        // }
+        // catch (Exception e)
+        // {
+        //     Log.Error(e, "An error occurred while executing the application.");
+        //     await MessageBoxHelper.ShowError("程序运行过程中发生未知错误，请重新安装程序或联系开发者。");
+        //     Environment.Exit(-999);
+        // }
     }
 }

@@ -142,24 +142,24 @@ public class UpdaterService(IApplicationVersionApi applicationVersionApi, Config
         progressData.TotalSteps = totalOperations;
         var completedSteps = 0;
 
-        // 阶段1：处理重命名
-        progressData.Phase = "处理文件重命名";
-        foreach (var rename in diff.FilesToRename)
-        {
-            progressData.CurrentFile = $"{rename.Key} → {rename.Value}";
-            progressData.CurrentStep = ++completedSteps;
-
-            var oldPath = Path.Combine(appRoot, rename.Key);
-            var newPath = Path.Combine(appRoot, rename.Value);
-
-            if (File.Exists(oldPath))
-            {
-                Directory.CreateDirectory(Path.GetDirectoryName(newPath) ?? throw new InvalidOperationException());
-                File.Move(oldPath, newPath);
-            }
-
-            ReportProgress(progress, progressData);
-        }
+        // // 阶段1：处理重命名
+        // progressData.Phase = "处理文件重命名";
+        // foreach (var rename in diff.FilesToRename)
+        // {
+        //     progressData.CurrentFile = $"{rename.Key} → {rename.Value}";
+        //     progressData.CurrentStep = ++completedSteps;
+        //
+        //     var oldPath = Path.Combine(appRoot, rename.Key);
+        //     var newPath = Path.Combine(appRoot, rename.Value);
+        //
+        //     if (File.Exists(oldPath))
+        //     {
+        //         Directory.CreateDirectory(Path.GetDirectoryName(newPath) ?? throw new InvalidOperationException());
+        //         File.Move(oldPath, newPath);
+        //     }
+        //
+        //     ReportProgress(progress, progressData);
+        // }
 
         // // 阶段2：处理删除
         // progressData.Phase = "清理旧文件";

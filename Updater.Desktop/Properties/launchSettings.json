@@ -2,8 +2,7 @@
   "profiles": {
     "Updater.Desktop": {
       "commandName": "Project",
-      "commandLineArgs": "-u",
-      "workingDirectory": "D:\\测试"
+      "workingDirectory": "D:\\VizRail2024"
     }
   }
 }

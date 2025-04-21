@@ -38,6 +38,11 @@ public static partial class FileHelper
                 continue;
             }
 
+            if (file.Contains("acad.dat") || file.Contains("workdir"))
+            {
+                continue;
+            }
+
             var fileMetadata = new FileMetadata
             {
                 Path = MakeRelativePath(rootPath, file),

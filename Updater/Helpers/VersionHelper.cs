@@ -24,7 +24,7 @@ public static class VersionHelper
 
         // 从注册表中获取当前版本号
         var key = Registry.LocalMachine.OpenSubKey(
-            $@"Software\Microsoft\Windows\CurrentVersion\Uninstall\{applicationId}_is1");
+            $@"Software\Microsoft\Windows\CurrentVersion\Uninstall\{{{applicationId}}}_is1");
         if (key is null)
         {
             throw new NotInstallCurrectlyException();
