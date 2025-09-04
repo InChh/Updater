@@ -10,9 +10,9 @@
 		<AssemblyName>AutoUpdater</AssemblyName>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<PublishAot>true</PublishAot>
-		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
-		<TrimMode>link</TrimMode>
+		<!-- <PublishAot>true</PublishAot> -->
+		<!-- <BuiltInComInteropSupport>false</BuiltInComInteropSupport> -->
+		<!-- <TrimMode>link</TrimMode> -->
 	</PropertyGroup>
 
 	<ItemGroup>

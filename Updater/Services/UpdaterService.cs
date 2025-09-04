@@ -75,19 +75,19 @@ public class UpdaterService(IApplicationVersionApi applicationVersionApi, Config
 
             if (!remotePathDict.ContainsKey(localFile.Path))
             {
-                var renamedTarget = remoteFiles.FirstOrDefault(rf =>
-                    rf.Hash == localFile.Hash &&
-                    rf.Size == localFile.Size &&
-                    rf.Path != localFile.Path);
+                // var renamedTarget = remoteFiles.FirstOrDefault(rf =>
+                //     rf.Hash == localFile.Hash &&
+                //     rf.Size == localFile.Size &&
+                //     rf.Path != localFile.Path);
 
-                if (renamedTarget != null)
-                {
-                    diff.FilesToRename[localFile.Path] = renamedTarget.Path;
-                }
-                else
-                {
+                // if (renamedTarget != null)
+                // {
+                //     diff.FilesToRename[localFile.Path] = renamedTarget.Path;
+                // }
+                // else
+                // {
                     diff.FilesToDelete.Add(localFile.Path);
-                }
+                // }
             }
 
             progress.Report(progressData);
@@ -107,7 +107,8 @@ public class UpdaterService(IApplicationVersionApi applicationVersionApi, Config
                     diff.FilesToUpdate.Add(remoteFile);
                 }
             }
-            else if (!diff.FilesToRename.ContainsValue(remoteFile.Path))
+            // else if (!diff.FilesToRename.ContainsValue(remoteFile.Path))
+            else
             {
                 diff.FilesToAdd.Add(remoteFile);
             }
